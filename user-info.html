@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Info - Red Store</title>
+    <link rel="stylesheet" href="style.css"> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f8e9;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+        .section {
+            margin-bottom: 20px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            font-weight: bold;
+        }
+        .products img {
+            width: 80px;
+            margin-right: 10px;
+        }
+        .footer {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <img src="images/logo.png" width="125px" alt="Red Store Logo">
+            </div>
+            <nav>
+                <ul id="MenuItems">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="account.html">Account</a></li>
+                </ul>
+            </nav>
+            <a href="cart.html"> <img src="images/cart.png" width="30px" height="30px" alt="Cart"></a>
+            <img src="images/menu.png" class="menu-icon" onclick="menutoggle()" alt="Menu">
+        </div>
+    </div>
+
+    <!-- User Information Section -->
+    <div class="container">
+        <h1>Where to Send the Product</h1>
+
+        <!-- Customer Name Section -->
+        <div class="section">
+            <h2>Customer Name</h2>
+            <p id="customerName"></p>
+        </div>
+
+        <!-- Products Section -->
+        <div class="section">
+            <h2>Products</h2>
+            <div id="products" class="products">
+                <!-- Products will be displayed here -->
+            </div>
+        </div>
+
+        <!-- Address Section -->
+        <div class="section">
+            <h2>Address</h2>
+            <p id="address"></p>
+        </div>
+
+        <a href="account.html" class="logout">Logout</a>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2024 REDSTORE. All Rights Reserved.</p>
+    </div>
+
+    <!-- JavaScript to fetch and display data -->
+    <script>
+        var MenuItems = document.getElementById("MenuItems");
+        MenuItems.style.maxHeight = "0px";
+        
+        function menutoggle() {
+            if (MenuItems.style.maxHeight == "0px") {
+                MenuItems.style.maxHeight = "200px";
+            } else {
+                MenuItems.style.maxHeight = "0px";
+            }
+        }
+
+        // Fetch data from localStorage
+        function loadUserInfo() {
+            // Customer Name
+            var customerName = localStorage.getItem('customerName') || 'No name provided';
+            document.getElementById('customerName').innerText = customerName;
+
+            // Cart Products
+            var cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+            var productsContainer = document.getElementById('products');
+            cartItems.forEach(function(item) {
+                productsContainer.innerHTML += `
+                    <div class="product-item">
+                        <img src="${item.image}" alt="${item.name}">
+                        <span>${item.name} - Rs ${item.price} x ${item.quantity}</span>
+                    </div>
+                `;
+            });
+
+            // Address
+            var address = localStorage.getItem('address') || 'No address provided';
+            document.getElementById('address').innerText = address;
+        }
+
+        // Load the user info when the page loads
+        window.onload = loadUserInfo;
+    </script>
+</body>
+</html>

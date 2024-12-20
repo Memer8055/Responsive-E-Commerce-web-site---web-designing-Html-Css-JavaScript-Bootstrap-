@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart - REDSTORE</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f8e9; /* Light orange background */
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+        .row {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .col-6 {
+            flex: 2;
+            margin: 10px;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .col-3 {
+            flex: 1;
+            margin: 10px;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .cart-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .cart-item img {
+            width: 80px; /* Smaller image */
+            margin-right: 15px;
+        }
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .remove-btn {
+            margin-left: 10px;
+            background-color: #f44336; /* Red */
+            color: white;
+        }
+        .subtotal {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .address-form {
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+        }
+        .address-form input {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+        }
+        h2 {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="navbar">
+        <div class="logo">
+            <a href="index.html"><img src="images/logo.png" width="125px"></a>
+        </div>
+        <nav>
+            <ul id="MenuItems">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="account.html">Account</a></li>
+            </ul>
+        </nav>
+        <a href="cart.html"><img src="images/cart.png" width="30px" height="30px"></a>
+        <img src="images/menu.png" class="menu-icon" onclick="menutoggle()">
+    </div>
+
+    <h2>Your Cart</h2>
+    <div class="row">
+        <div class="col-6" id="cartItems">
+            <!-- Cart items will be dynamically inserted here -->
+        </div>
+        <div class="col-3">
+            <h3>Summary</h3>
+            <div class="subtotal">
+                <span>Total:</span>
+                <span id="totalPrice">Rs 0.00</span>
+            </div>
+            <h3>Address</h3>
+            <div class="address-form">
+                <input type="text" id="pincodeInput" placeholder="Pincode" required>
+                <input type="text" id="countryInput" placeholder="Country" required>
+                <input type="text" id="stateInput" placeholder="State" required>
+                
+                <!-- New Name and Phone number fields -->
+                <input type="text" id="nameInput" placeholder="Name" required>
+                <input type="text" id="phoneInput" placeholder="Phone Number" required>
+
+                <button class="btn" onclick="getCurrentLocation()">Use My Current Location</button>
+                <button class="btn" onclick="proceedToUserDetails()">Proceed to Payment</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 REDSTORE. All Rights Reserved.</p>
+</footer>
+
+<script>
+    var MenuItems = document.getElementById("MenuItems");
+    MenuItems.style.maxHeight = "0px";
+    
+    function menutoggle() {
+        if (MenuItems.style.maxHeight == "0px") {
+            MenuItems.style.maxHeight = "200px";
+        } else {
+            MenuItems.style.maxHeight = "0px";
+        }
+    }
+
+    function getCartData() {
+        return JSON.parse(localStorage.getItem('cart')) || [];
+    }
+
+    function renderCartItems() {
+        var cartData = getCartData();
+        var cartItemsContainer = document.getElementById("cartItems");
+        cartItemsContainer.innerHTML = ""; // Clear existing items
+        let total = 0;
+
+        cartData.forEach(function(item, index) {
+            const subtotal = item.price * item.quantity;
+            total += subtotal;
+            cartItemsContainer.innerHTML += `
+                <div class="cart-item">
+                    <img src="${item.image}" alt="${item.name}">
+                    <div>
+                        <h4>${item.name}</h4>
+                        <p>Price: Rs ${item.price}</p>
+                        <label for="quantity${index}">Quantity:</label>
+                        <input type="number" id="quantity${index}" value="${item.quantity}" min="1" onchange="updateQuantity(${index}, this.value)">
+                        <p>Subtotal: Rs ${subtotal}</p>
+                    </div>
+                    <button class="btn remove-btn" onclick="removeFromCart(${index})">Remove</button>
+                </div>
+            `;
+        });
+
+        // Update the total price display
+        document.getElementById("totalPrice").innerText = `Rs ${total}`;
+    }
+
+    function updateQuantity(index, quantity) {
+        let cartData = getCartData();
+        cartData[index].quantity = parseInt(quantity);
+        localStorage.setItem('cart', JSON.stringify(cartData));
+        renderCartItems(); // Re-render the cart items to update the total
+    }
+
+    function removeFromCart(index) {
+        let cartData = getCartData();
+        cartData.splice(index, 1); // Remove the item from cartData
+        localStorage.setItem('cart', JSON.stringify(cartData));
+        renderCartItems(); // Re-render the cart items
+    }
+
+    function proceedToUserDetails() {
+        const pincode = document.getElementById("pincodeInput").value;
+        const country = document.getElementById("countryInput").value;
+        const state = document.getElementById("stateInput").value;
+        const name = document.getElementById("nameInput").value;
+        const phone = document.getElementById("phoneInput").value;
+
+        if (!pincode || !country || !state || !name || !phone) {
+            alert("Please fill in all fields.");
+            return;
+        }
+
+        // Store user details in localStorage
+        const userData = { name, phone, pincode, country, state };
+        localStorage.setItem('userData', JSON.stringify(userData));
+
+        // Store total price in localStorage
+        const total = document.getElementById("totalPrice").innerText;
+        localStorage.setItem('cartTotal', total); // Saving the total cart price
+        
+        // Redirect to payment.html
+        window.location.href = "payment.html";
+    }
+
+    function getCurrentLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                // Here you would typically set the values of the address fields based on the detected location
+                alert("Current location detected! Implement reverse geocoding to get address details.");
+            });
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+    }
+
+    // Initial render of cart items
+    renderCartItems();
+</script>
+</body>
+</html>

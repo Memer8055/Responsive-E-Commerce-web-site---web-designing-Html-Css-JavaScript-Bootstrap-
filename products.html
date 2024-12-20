@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALL PRODUCTS - REDSTORE</title>
+    <link rel="stylesheet" href="style.css">  
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css">
+    <style>
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .col-4 {
+            flex: 1 1 24%;
+            margin: 1%;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="navbar">
+        <div class="logo">
+            <a href="index.html"><img src="images/logo.png" width="125px"></a>
+        </div>
+        <nav>
+            <ul id="MenuItems">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="account.html">Account</a></li>
+            </ul>
+        </nav>
+        <a href="cart.html"><img src="images/cart.png" width="30px" height="30px"></a>
+        <img src="images/menu.png" class="menu-icon" onclick="menutoggle()">
+    </div>
+</div>
+
+<div class="small-container">
+    <div class="row row-2">
+        <h2>ALL PRODUCTS</h2>
+        <select id="sortSelect" onchange="sortProducts()">
+            <option value="default">Default Sorting</option>
+            <option value="price">Sort by Price</option>
+            <option value="popularity">Sort by Popularity</option>
+            <option value="rating">Sort by Rating</option>
+        </select>
+    </div>
+
+    <div class="row" id="productContainer">
+        <div class="col-4" data-price="1200" data-popularity="3" data-rating="4.5">
+            <a href="product-details.html"><img src="images/product-1.jpg"></a>
+            <h4>Red Printed T-Shirt</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-o"></i>
+            </div>
+            <p>Rs 1200.00</p>
+            <button class="btn" onclick="addToCart('Red Printed T-Shirt', 1200, 'images/product-1.jpg')">Add to Cart</button>
+        </div>
+        <div class="col-4" data-price="1500" data-popularity="4" data-rating="4.0">
+            <a href="product-details.html"><img src="images/product-2.jpg"></a>
+            <h4>Black Casual Shoes</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-o"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <p>Rs 1500.00</p>
+            <button class="btn" onclick="addToCart('Blue Casual Shoes', 1500, 'images/product-2.jpg')">Add to Cart</button>
+        </div>
+        <div class="col-4" data-price="2200" data-popularity="5" data-rating="5.0">
+            <a href="product-details.html"><img src="images/product-3.jpg"></a>
+            <h4>Grey cargo pants</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+            </div>
+            <p>Rs 2200.00</p>
+            <button class="btn" onclick="addToCart('Green Sports Jacket', 2200, 'images/product-3.jpg')">Add to Cart</button>
+        </div>
+        <div class="col-4" data-price="800" data-popularity="2" data-rating="3.5">
+            <a href="product-details.html"><img src="images/product-4.jpg"></a>
+            <h4>Blue Puma T-Shirt</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-o"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <p>Rs 800.00</p>
+            <button class="btn" onclick="addToCart('Black Running Shorts', 800, 'images/product-4.jpg')">Add to Cart</button>
+        </div>
+        <div class="col-4" data-price="3000" data-popularity="4" data-rating="4.8">
+            <a href="product-details.html"><img src="images/product-5.jpg"></a>
+            <h4>White high-neck Shoes</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+            </div>
+            <p>Rs 3000.00</p>
+            <button class="btn" onclick="addToCart('White Sports Sneakers', 3000, 'images/product-5.jpg')">Add to Cart</button>
+        </div>
+        <div class="col-4" data-price="900" data-popularity="3" data-rating="4.2">
+            <a href="product-details.html"><img src="images/product-6.jpg"></a>
+            <h4>Black Sweat-Shirt</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-o"></i>
+            </div>
+            <p>Rs 900.00</p>
+            <button class="btn" onclick="addToCart('Grey Sweatpants', 900, 'images/product-6.jpg')">Add to Cart</button>
+        </div>
+        <div class="col-4" data-price="1400" data-popularity="5" data-rating="4.7">
+            <a href="product-details.html"><img src="images/product-7.jpg"></a>
+            <h4>HRX-Socks</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <p>Rs 1400.00</p>
+            <button class="btn" onclick="addToCart('Yellow Sports Cap', 1400, 'images/product-7.jpg')">Add to Cart</button>
+        </div>
+        <div class="col-4" data-price="2500" data-popularity="3" data-rating="4.5">
+            <a href="product-details.html"><img src="images/product-8.jpg"></a>
+            <h4>Blue Fossi watch</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-o"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <p>Rs 2500.00</p>
+            <button class="btn" onclick="addToCart('Blue Backpack', 2500, 'images/product-8.jpg')">Add to Cart</button>
+        </div>
+        <div class="col-4" data-price="1800" data-popularity="4" data-rating="4.0">
+            <a href="product-details.html"><img src="images/product-9.jpg"></a>
+            <h4>Black-ck-watch</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <p>Rs 1800.00</p>
+            <button class="btn" onclick="addToCart('Orange Sports Bag', 1800, 'images/product-9.jpg')">Add to Cart</button>
+        </div>
+        <div class="col-4" data-price="950" data-popularity="5" data-rating="4.9">
+            <a href="product-details.html"><img src="images/product-10.jpg"></a>
+            <h4>Black Sports Shoes</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+            </div>
+            <p>Rs 950.00</p>
+            <button class="btn" onclick="addToCart('Black Sports Socks', 950, 'images/product-10.jpg')">Add to Cart</button>
+        </div>
+        <div class="col-4" data-price="2000" data-popularity="3" data-rating="4.1">
+            <a href="product-details.html"><img src="images/product-11.jpg"></a>
+            <h4> Sports Shoes</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-o"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <p>Rs 2000.00</p>
+            <button class="btn" onclick="addToCart('Red Sports Watch', 2000, 'images/product-11.jpg')">Add to Cart</button>
+        </div>
+        <div class="col-4" data-price="3000" data-popularity="4" data-rating="4.8">
+            <a href="product-details.html"><img src="images/product-12.jpg"></a>
+            <h4>Fitness cargo</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+            </div>
+            <p>Rs 3000.00</p>
+            <button class="btn" onclick="addToCart('Fitness Tracker', 3000, 'images/product-12.jpg')">Add to Cart</button>
+        </div>
+        
+    </div>
+    
+    <div class="page-btn">
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+        <span>4</span>
+        <span>&#8594;</span>
+    </div>
+</div>
+
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="footer-col-1">
+                <h3>Download Our App</h3>
+                <p>Download App for Android and iOS mobile phone.</p>
+                <div class="app-logo">
+                    <img src="images/play-store.png">
+                    <img src="images/app-store.png">
+                </div>
+            </div>
+            <div class="footer-col-2">
+                <img src="images/logo-white.png">
+                <p>Our Purpose is to sustainably make the pleasure and benefits of sports accessible to the many.</p>
+            </div>
+            <div class="footer-col-3">
+                <h3>Useful Links</h3>
+                <ul>
+                    <li>Coupons</li>
+                    <li>Blog Post</li>
+                    <li>Return Policy</li>
+                    <li>Join Affiliate</li>
+                </ul>
+            </div>
+            <div class="footer-col-4">
+                <h3>Follow Us</h3>
+                <ul>
+                    <li>Facebook</li>
+                    <li>Twitter</li>
+                    <li>Instagram</li>
+                    <li>YouTube</li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <p class="Copyright">Copyright 2024 - Easy Tutorials</p>
+    </div>
+</div>
+
+<script>
+    var MenuItems = document.getElementById("MenuItems");
+    MenuItems.style.maxHeight = "0px";
+    
+    function menutoggle() {
+        if (MenuItems.style.maxHeight == "0px") {
+            MenuItems.style.maxHeight = "200px";
+        } else {
+            MenuItems.style.maxHeight = "0px";
+        }
+    }
+
+    function sortProducts() {
+        var container = document.getElementById("productContainer");
+        var products = Array.from(container.children);
+        var select = document.getElementById("sortSelect");
+        var value = select.value;
+
+        products.sort(function(a, b) {
+            if (value === "price") {
+                return parseFloat(a.getAttribute("data-price")) - parseFloat(b.getAttribute("data-price"));
+            } else if (value === "popularity") {
+                return parseFloat(b.getAttribute("data-popularity")) - parseFloat(a.getAttribute("data-popularity"));
+            } else if (value === "rating") {
+                return parseFloat(b.getAttribute("data-rating")) - parseFloat(a.getAttribute("data-rating"));
+            }
+            return 0; // Default sorting
+        });
+
+        container.innerHTML = "";
+        products.forEach(function(product) {
+            container.appendChild(product);
+        });
+    }
+
+    function addToCart(name, price, image) {
+        let cartData = JSON.parse(localStorage.getItem('cart')) || [];
+        cartData.push({ name: name, price: price, image: image });
+        localStorage.setItem('cart', JSON.stringify(cartData));
+        alert(name + " has been added to your cart!");
+    }
+</script>
+</body>
+</html>

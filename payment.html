@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stylish Payment Page</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #ff6600;
+            padding: 20px 0;
+            text-align: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        header img {
+            width: 50px;
+            vertical-align: middle;
+        }
+
+        /* Main Content */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 50px auto;
+            background-color: white;
+            padding: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 30px;
+            color: #333;
+        }
+
+        .summary {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+
+        .summary h2 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .summary p {
+            font-size: 18px;
+            color: #555;
+        }
+
+        .payment-options {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .payment-option {
+            width: 30%;
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .payment-option:hover {
+            border-color: #ff6600;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .payment-option img {
+            width: 100px;
+            height: auto;
+        }
+
+        .payment-option label {
+            display: block;
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        /* Payment Form */
+        .payment-form {
+            display: none;
+        }
+
+        .payment-form.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #ff6600;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background-color: #e65c00;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            padding: 20px 0;
+            text-align: center;
+            color: white;
+            margin-top: 50px;
+        }
+
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Paytm_Logo_New.png/200px-Paytm_Logo_New.png" alt="Logo">
+        RED STORE - Payment
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <h1>Select Payment Method</h1>
+
+        <!-- Cart Summary -->
+        <div class="summary">
+            <h2>Price Summary</h2>
+            <p>Total Products: <span id="cartItems"></span></p>
+            <p>Total Price: Rs <span id="cartTotal"></span></p>
+        </div>
+
+        <!-- Payment Options -->
+        <div class="payment-options">
+            <div class="payment-option" data-method="upi">
+                <img src="https://www.nfcw.com/wp-content/uploads/2019/09/google-pay-logo.png" alt="Google Pay">
+                <label>Google Pay (UPI)</label>
+            </div>
+            <div class="payment-option" data-method="debitCard">
+                <img src="https://cdn-icons-png.flaticon.com/512/4926/4926755.png" alt="Debit Card">
+                <label>Debit Card</label>
+            </div>
+            <div class="payment-option" data-method="paytm">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Paytm_Logo_New.png/200px-Paytm_Logo_New.png" alt="Paytm">
+                <label>Paytm Wallet</label>
+            </div>
+        </div>
+
+        <!-- Payment Forms -->
+        <div class="payment-form" id="upi-form">
+            <h3>Enter UPI ID</h3>
+            <div class="form-group">
+                <label for="upi-id">UPI ID</label>
+                <input type="text" id="upi-id" placeholder="Enter your UPI ID">
+            </div>
+            <button class="btn" onclick="payWithRazorpay()">Pay Now</button>
+        </div>
+
+        <div class="payment-form" id="debit-form">
+            <h3>Enter Card Details</h3>
+            <div class="form-group">
+                <label for="card-number">Card Number</label>
+                <input type="text" id="card-number" placeholder="Enter your card number">
+            </div>
+            <div class="form-group">
+                <label for="expiry-date">Expiry Date</label>
+                <input type="text" id="expiry-date" placeholder="MM/YY">
+            </div>
+            <div class="form-group">
+                <label for="cvv">CVV</label>
+                <input type="text" id="cvv" placeholder="CVV">
+            </div>
+            <button class="btn" onclick="payWithRazorpay()">Pay Now</button>
+        </div>
+
+        <div class="payment-form" id="paytm-form">
+            <h3>Pay via Paytm Wallet</h3>
+            <div class="form-group">
+                <label for="paytm-number">Paytm Mobile Number</label>
+                <input type="text" id="paytm-number" placeholder="Enter your Paytm number">
+            </div>
+            <button class="btn" onclick="payWithRazorpay()">Pay Now</button>
+        </div>
+
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 RED STORE. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JavaScript to Handle Payment Options -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        // Fetch cart data from localStorage
+        document.addEventListener('DOMContentLoaded', function () {
+            const cartTotal = localStorage.getItem('cartTotal') || '700.00';
+            const cartItems = localStorage.getItem('cartItems') || '2';
+
+            document.getElementById('cartTotal').textContent = cartTotal;
+            document.getElementById('cartItems').textContent = cartItems;
+        });
+
+        const paymentOptions = document.querySelectorAll('.payment-option');
+        const forms = document.querySelectorAll('.payment-form');
+
+        paymentOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                const method = this.getAttribute('data-method');
+                
+                // Hide all forms first
+                forms.forEach(form => form.classList.remove('active'));
+                
+                // Show selected payment method form
+                if (method === 'upi') {
+                    document.getElementById('upi-form').classList.add('active');
+                } else if (method === 'debitCard') {
+                    document.getElementById('debit-form').classList.add('active');
+                } else if (method === 'paytm') {
+                    document.getElementById('paytm-form').classList.add('active');
+                }
+            });
+        });
+
+        function payWithRazorpay() {
+    var options = {
+        "key": "rzp_test_QLOVtMzTHDTkyf", // Enter your Razorpay API key here
+        "amount": 8700 * 100, // Amount in paise (300 INR = 300 * 100 paise)
+        "currency": "INR",
+        "name": "RED STORE",
+        "description": "Thank you for shopping with us",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Paytm_Logo_New.png/200px-Paytm_Logo_New.png",
+        "handler": function(response) {
+            alert("Payment successful. Order ID: " + response.razorpay_payment_id);
+            localStorage.clear(); // Clear cart after payment
+        }
+    };
+
+    var rzp = new Razorpay(options);
+    rzp.open(); // Open Razorpay payment gateway
+}
+
+    </script>
+</body>
+</html>

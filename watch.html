@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALL PRODUCTS - REDSTORE</title>
+    <link rel="stylesheet" href="style.css">  
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css">
+    <style>
+        body {
+            background-color: #FFEBCC; /* Light orange background */
+            font-family: 'Poppins', sans-serif;
+        }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        .navbar ul {
+            list-style-type: none;
+        }
+        .navbar ul li {
+            display: inline-block;
+            margin: 0 10px;
+        }
+        .navbar ul li a {
+            text-decoration: none;
+            color: #555;
+        }
+        .small-container {
+            max-width: 1080px;
+            margin: auto;
+            padding-left: 25px;
+            padding-right: 25px;
+        }
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .col-4 {
+            flex-basis: 22%;
+            margin-bottom: 30px;
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .col-4 img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        .rating i {
+            color: #ff523b;
+        }
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .footer {
+            background-color: #000;
+            color: #fff;
+            padding: 40px 0;
+            margin-top: 50px;
+        }
+        .footer-col-1, .footer-col-2, .footer-col-3, .footer-col-4 {
+            flex-basis: 25%;
+            padding: 10px;
+        }
+        .footer img {
+            width: 150px;
+        }
+        .footer p, .footer ul, .footer h3 {
+            color: #fff;
+        }
+        .footer ul {
+            list-style-type: none;
+        }
+        .footer ul li {
+            margin-bottom: 10px;
+        }
+        .footer hr {
+            border: none;
+            background-color: #fff;
+            height: 1px;
+            margin: 20px 0;
+        }
+        @media only screen and (max-width: 768px) {
+            .col-4 {
+                flex-basis: 45%;
+            }
+        }
+        @media only screen and (max-width: 480px) {
+            .col-4 {
+                flex-basis: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="navbar">
+        <div class="logo">
+            <a href="index.html"><img src="images/logo.png" width="125px"></a>
+        </div>
+        <nav>
+            <ul id="MenuItems">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="account.html">Account</a></li>
+            </ul>
+        </nav>
+        <a href="cart.html"><img src="images/cart.png" width="30px" height="30px"></a>
+        <img src="images/menu.png" class="menu-icon" onclick="menutoggle()">
+    </div>
+</div>
+
+<div class="small-container">
+    <div class="row row-2">
+        <h1>LUXURY WATCHES</h1>
+        <select id="sortSelect" onchange="sortProducts()">
+            <option value="default">Default Sorting</option>
+            <option value="price">Sort by Price</option>
+            <option value="popularity">Sort by Popularity</option>
+            <option value="rating">Sort by Rating</option>
+        </select>
+    </div>
+
+    <div class="row" id="productContainer">
+        <!-- Add your 12 images here, each one with relevant info -->
+        <div class="col-4" data-price="1500" data-popularity="3" data-rating="4.5">
+            <a href=""><img src="images/hoe1.jpg"></a>
+            <h4>LUXURY WATCHE1</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-o"></i>
+            </div>
+            <p>Rs 1500.00</p>
+            <button class="btn" onclick="addToCart('LUXURY WATCHE1', 1500, 'images/hoe1.jpg')">Add to Cart</button>
+        </div>
+
+        <div class="col-4" data-price="1900" data-popularity="4" data-rating="4">
+            <a href="product-details.html"><img src="images/hoe2.jpg"></a>
+            <h4>LUXURY WATCHE2</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-o"></i>
+            </div>
+            <p>Rs 1900.00</p>
+            <button class="btn" onclick="addToCart('LUXURY WATCHE2', 1900, 'images/hoe2.jpg')">Add to Cart</button>
+        </div>
+
+        <div class="col-4" data-price="7200" data-popularity="5" data-rating="4.5">
+            <a href="product-details.html"><img src="images/hoe3.jpg"></a>
+            <h4>LUXURY WATCHE3</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-o"></i>
+            </div>
+            <p>Rs 7200.00</p>
+            <button class="btn" onclick="addToCart('LUXURY WATCHE3', 7200, 'images/hoe3.jpg')">Add to Cart</button>
+        </div>
+
+        <div class="col-4" data-price="1000" data-popularity="2" data-rating="3.5">
+            <a href="product-details.html"><img src="images/hoe4.jpg"></a>
+            <h4>LUXURY WATCHE4</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-o"></i>
+            </div>
+            <p>Rs 1000.00</p>
+            <button class="btn" onclick="addToCart('LUXURY WATCHE4', 1000, 'images/hoe4.jpg')">Add to Cart</button>
+        </div>
+
+        <div class="col-4" data-price="1800" data-popularity="1" data-rating="4.5">
+            <a href="product-details.html"><img src="images/hoe5.jpg"></a>
+            <h4>LUXURY WATCHE5</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-o"></i>
+            </div>
+            <p>Rs 1800.00</p>
+            <button class="btn" onclick="addToCart('LUXURY WATCHE5', 1800, 'images/hoe5.jpg')">Add to Cart</button>
+        </div>
+
+        <div class="col-4" data-price="2200" data-popularity="5" data-rating="5">
+            <a href="product-details.html"><img src="images/hoe6.jpg"></a>
+            <h4>LUXURY WATCHE6</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-o"></i>
+            </div>
+            <p>Rs 2200.00</p>
+            <button class="btn" onclick="addToCart('LUXURY WATCHE6', 2200, 'images/hoe6.jpg')">Add to Cart</button>
+        </div>
+
+        <div class="col-4" data-price="6600" data-popularity="2" data-rating="2.5">
+            <a href="product-details.html"><img src="images/hoe7.jpg"></a>
+            <h4>LUXURY WATCHE7</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-o"></i>
+            </div>
+            <p>Rs 6600.00</p>
+            <button class="btn" onclick="addToCart('LUXURY WATCHE7', 6600, 'images/hoe7.jpg')">Add to Cart</button>
+        </div>
+
+        <div class="col-4" data-price="6200" data-popularity="3" data-rating="4.5">
+            <a href="product-details.html"><img src="images/hoe8.jpg"></a>
+            <h4>LUXURY WATCHE8</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-o"></i>
+            </div>
+            <p>Rs 6200.00</p>
+            <button class="btn" onclick="addToCart('LUXURY WATCHE8', 6200, 'images/hoe8.jpg')">Add to Cart</button>
+        </div>
+
+        <div class="col-4" data-price="7700" data-popularity="5" data-rating="5">
+            <a href="product-details.html"><img src="images/hoe9.jpg"></a>
+            <h4>LUXURY WATCHE9</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-o"></i>
+            </div>
+            <p>Rs 7700.00</p>
+            <button class="btn" onclick="addToCart('LUXURY WATCHE9', 7700, 'images/hoe9.jpg')">Add to Cart</button>
+        </div>
+
+        <div class="col-4" data-price="5200" data-popularity="3.3" data-rating="1.5">
+            <a href="product-details.html"><img src="images/hoe10.jpg"></a>
+            <h4>LUXURY WATCHE10</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-o"></i>
+            </div>
+            <p>Rs 5200.00</p>
+            <button class="btn" onclick="addToCart('LUXURY WATCHE10', 5200, 'images/hoe10.jpg')">Add to Cart</button>
+        </div>
+
+        <div class="col-4" data-price="4200" data-popularity="4.3" data-rating="4.0">
+            <a href="product-details.html"><img src="images/hoe11.jpg"></a>
+            <h4>LUXURY WATCHE11</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-o"></i>
+            </div>
+            <p>Rs 4200.00</p>
+            <button class="btn" onclick="addToCart('LUXURY WATCHE11', 4200, 'images/hoe11.jpg')">Add to Cart</button>
+        </div>
+
+        <div class="col-4" data-price="12000" data-popularity="5" data-rating="5">
+            <a href="product-details.html"><img src="images/hoe12.jpg"></a>
+            <h4>LUXURY WATCHE12</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-o"></i>
+            </div>
+            <p>Rs 12000.00</p>
+            <button class="btn" onclick="addToCart('LUXURY WATCHE12', 12000, 'images/hoe12.jpg')">Add to Cart</button>
+        </div>
+        <!-- Add other products similarly, adjusting data-price, data-popularity, and data-rating -->
+    </div>
+</div>
+
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="footer-col-1">
+                <h3>Download Our App</h3>
+                <p>Download App for Android and iOS mobile phone.</p>
+                <div class="app-logo">
+                    <img src="images/play-store.png">
+                    <img src="images/app-store.png">
+                </div>
+            </div>
+            <div class="footer-col-2">
+                <img src="images/logo-white.png">
+                <p>Our Purpose is to sustainably make the pleasure and benefits of sports accessible to the many.</p>
+            </div>
+            <div class="footer-col-3">
+                <h3>Useful Links</h3>
+                <ul>
+                    <li>Coupons</li>
+                    <li>Blog Post</li>
+                    <li>Return Policy</li>
+                    <li>Join Affiliate</li>
+                </ul>
+            </div>
+            <div class="footer-col-4">
+                <h3>Follow Us</h3>
+                <ul>
+                    <li>Facebook</li>
+                    <li>Twitter</li>
+                    <li>Instagram</li>
+                    <li>YouTube</li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <p class="Copyright">Copyright 2024 - Red Store</p>
+    </div>
+</div>
+
+<script>
+    var MenuItems = document.getElementById("MenuItems");
+    MenuItems.style.maxHeight = "0px";
+    
+    function menutoggle() {
+        if (MenuItems.style.maxHeight == "0px") {
+            MenuItems.style.maxHeight = "200px";
+        } else {
+            MenuItems.style.maxHeight = "0px";
+        }
+    }
+
+    function sortProducts() {
+        var container = document.getElementById("productContainer");
+        var products = Array.from(container.children);
+        var select = document.getElementById("sortSelect");
+        var value = select.value;
+
+        products.sort(function(a, b) {
+            if (value === "price") {
+                return parseFloat(a.getAttribute("data-price")) - parseFloat(b.getAttribute("data-price"));
+            } else if (value === "popularity") {
+                return parseFloat(b.getAttribute("data-popularity")) - parseFloat(a.getAttribute("data-popularity"));
+            } else if (value === "rating") {
+                return parseFloat(b.getAttribute("data-rating")) - parseFloat(a.getAttribute("data-rating"));
+            }
+            return 0; // Default sorting
+        });
+
+        container.innerHTML = "";
+        products.forEach(function(product) {
+            container.appendChild(product);
+        });
+    }
+
+    function addToCart(name, price, image) {
+        let cartData = JSON.parse(localStorage.getItem('cart')) || [];
+        cartData.push({ name, price, image });
+        localStorage.setItem('cart', JSON.stringify(cartData));
+        alert(name + " has been added to cart!");
+    }
+</script>
+
+</body>
+</html>
